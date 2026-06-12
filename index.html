@@ -19,15 +19,15 @@
         <div class="logo">✦</div>
         <div>
           <h1>CelAR</h1>
-          <p>Constel·lacions enfocant amb el mòbil</p>
+          <p>Constel·lacions, planetes i Lluna enfocant amb Android</p>
         </div>
       </div>
       <p class="notice">
-        Aquesta PWA per Android mostra una capa astronòmica damunt la càmera utilitzant GPS, hora i sensors d’orientació.
+        Aquesta PWA mostra una capa astronòmica damunt la càmera amb GPS, hora, brúixola i sensors del mòbil.
       </p>
-      <button id="startBtn" class="primary">Començar</button>
+      <button id="startBtn" class="primary">Començar amb càmera</button>
       <button id="demoBtn" class="secondary">Mode demostració</button>
-      <p class="small">Cal obrir-la amb HTTPS perquè funcionin càmera, ubicació i sensors.</p>
+      <p class="small">Per usar càmera, ubicació i sensors cal obrir-la amb HTTPS. En local pots provar el mode demo.</p>
     </section>
 
     <header class="topbar">
@@ -38,11 +38,16 @@
       <button id="menuBtn" class="iconBtn" aria-label="Obrir menú">☰</button>
     </header>
 
+    <div id="compass" class="compass" aria-hidden="true">
+      <span id="compassNeedle">▲</span>
+      <b id="compassLabel">N</b>
+    </div>
+
     <section id="drawer" class="drawer hidden">
       <h2>Controls</h2>
       <label>
         Cerca objecte
-        <input id="search" type="search" placeholder="Orió, Polar, Sírius, Vega…" />
+        <input id="search" type="search" placeholder="Lluna, Venus, Orió, Polar, Sírius…" />
       </label>
       <div id="searchResults" class="results"></div>
 
@@ -55,21 +60,46 @@
         Mostrar constel·lacions
       </label>
       <label class="row">
+        <input id="showPlanets" type="checkbox" checked />
+        Mostrar Lluna i planetes
+      </label>
+      <label class="row">
+        <input id="showHorizon" type="checkbox" checked />
+        Mostrar horitzó i punts cardinals
+      </label>
+      <label class="row">
         <input id="nightMode" type="checkbox" />
         Mode nit
       </label>
 
       <div class="calibration">
         <h3>Calibratge</h3>
-        <p>Si el cel no coincideix, ajusta la brúixola manualment.</p>
+        <p>Si el cel no coincideix, ajusta la brúixola o centra un objecte conegut.</p>
         <div class="buttons">
           <button id="westBtn">−5°</button>
           <button id="resetCalBtn">0°</button>
           <button id="eastBtn">+5°</button>
         </div>
-        <p class="small">Consell: gira el mòbil en forma de 8 per millorar la brúixola.</p>
+        <button id="calibrateTargetBtn" class="wideBtn">Centrar objecte cercat</button>
+        <p class="small">Consell: gira el mòbil en forma de 8 abans d’observar.</p>
+      </div>
+
+      <div class="about">
+        <h3>Què fa aquesta versió?</h3>
+        <p class="small">Calcula què hi ha al cel segons la teva ubicació i orientació. No reconeix encara les estrelles per la imatge real.</p>
       </div>
     </section>
+
+    <article id="infoCard" class="infoCard hidden">
+      <button id="closeInfo" class="closeBtn" aria-label="Tancar">×</button>
+      <h2 id="infoTitle"></h2>
+      <p id="infoSubtitle"></p>
+      <p id="infoText"></p>
+      <dl>
+        <div><dt>Azimut</dt><dd id="infoAz">--°</dd></div>
+        <div><dt>Altura</dt><dd id="infoAlt">--°</dd></div>
+      </dl>
+    </article>
 
     <footer class="bottombar">
       <div class="metric"><span>Azimut</span><b id="azimuth">--°</b></div>
@@ -77,6 +107,7 @@
       <div class="metric"><span>Ubicació</span><b id="location">--</b></div>
     </footer>
 
+    <div id="guide" class="guide hidden"></div>
     <div id="toast" class="toast hidden"></div>
   </main>
   <script src="app.js" type="module"></script>
