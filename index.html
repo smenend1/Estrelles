@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#050816" />
+  <title>CelAR - Constel·lacions en RA</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icons/icon-192.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main id="app">
+    <video id="camera" autoplay playsinline muted></video>
+    <canvas id="sky"></canvas>
+
+    <section id="intro" class="panel intro">
+      <div class="brand">
+        <div class="logo">✦</div>
+        <div>
+          <h1>CelAR</h1>
+          <p>Constel·lacions enfocant amb el mòbil</p>
+        </div>
+      </div>
+      <p class="notice">
+        Aquesta PWA per Android mostra una capa astronòmica damunt la càmera utilitzant GPS, hora i sensors d’orientació.
+      </p>
+      <button id="startBtn" class="primary">Començar</button>
+      <button id="demoBtn" class="secondary">Mode demostració</button>
+      <p class="small">Cal obrir-la amb HTTPS perquè funcionin càmera, ubicació i sensors.</p>
+    </section>
+
+    <header class="topbar">
+      <div>
+        <strong id="modeLabel">CelAR</strong>
+        <span id="status">Esperant permisos…</span>
+      </div>
+      <button id="menuBtn" class="iconBtn" aria-label="Obrir menú">☰</button>
+    </header>
+
+    <section id="drawer" class="drawer hidden">
+      <h2>Controls</h2>
+      <label>
+        Cerca objecte
+        <input id="search" type="search" placeholder="Orió, Polar, Sírius, Vega…" />
+      </label>
+      <div id="searchResults" class="results"></div>
+
+      <label class="row">
+        <input id="showNames" type="checkbox" checked />
+        Mostrar noms
+      </label>
+      <label class="row">
+        <input id="showConstellations" type="checkbox" checked />
+        Mostrar constel·lacions
+      </label>
+      <label class="row">
+        <input id="nightMode" type="checkbox" />
+        Mode nit
+      </label>
+
+      <div class="calibration">
+        <h3>Calibratge</h3>
+        <p>Si el cel no coincideix, ajusta la brúixola manualment.</p>
+        <div class="buttons">
+          <button id="westBtn">−5°</button>
+          <button id="resetCalBtn">0°</button>
+          <button id="eastBtn">+5°</button>
+        </div>
+        <p class="small">Consell: gira el mòbil en forma de 8 per millorar la brúixola.</p>
+      </div>
+    </section>
+
+    <footer class="bottombar">
+      <div class="metric"><span>Azimut</span><b id="azimuth">--°</b></div>
+      <div class="metric"><span>Altura</span><b id="altitude">--°</b></div>
+      <div class="metric"><span>Ubicació</span><b id="location">--</b></div>
+    </footer>
+
+    <div id="toast" class="toast hidden"></div>
+  </main>
+  <script src="app.js" type="module"></script>
+</body>
+</html>
